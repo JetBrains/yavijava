@@ -22,6 +22,7 @@ dependencies {
     compile 'log4j:log4j:1.2.17'
     compile 'org.apache.httpcomponents:httpclient:4.3.5'
     compile 'org.projectlombok:lombok:1.16.4'
+    compile 'com.intellij:annotations:12.0'
     testCompile 'javax.servlet:javax.servlet-api:3.1.0'
     testCompile 'junit:junit:4.12-beta-3'
     testCompile 'org.spockframework:spock-core:0.7-groovy-2.0'

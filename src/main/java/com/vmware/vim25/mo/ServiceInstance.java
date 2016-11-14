@@ -33,6 +33,7 @@ import com.vmware.vim25.*;
 import com.vmware.vim25.mo.util.MorUtil;
 import com.vmware.vim25.ws.Client;
 import org.apache.log4j.Logger;
+import org.jetbrains.annotations.Nullable;
 
 import javax.net.ssl.TrustManager;
 import java.net.MalformedURLException;
@@ -304,6 +305,7 @@ public class ServiceInstance extends ManagedObject {
         return (CustomFieldsManager) createMO(getServiceContent().getCustomFieldsManager());
     }
 
+    @Nullable
     public CustomizationSpecManager getCustomizationSpecManager() {
         return (CustomizationSpecManager) createMO(getServiceContent().getCustomizationSpecManager());
     }
