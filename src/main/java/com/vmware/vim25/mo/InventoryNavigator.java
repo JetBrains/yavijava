@@ -54,7 +54,7 @@ public class InventoryNavigator {
         return createManagedEntities(ocs);
     }
 
-    private ObjectContent[] retrieveObjectContents(String[][] typeinfo, boolean recurse) throws InvalidProperty, RuntimeFault, RemoteException {
+    public ObjectContent[] retrieveObjectContents(String[][] typeinfo, boolean recurse) throws InvalidProperty, RuntimeFault, RemoteException {
         if (typeinfo == null || typeinfo.length == 0) {
             return null;
         }
