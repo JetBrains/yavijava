@@ -174,7 +174,7 @@ public class WSClient extends SoapClient {
 
         InputStream is = getInputStreamFromConnection(postCon);
 
-        if (postCon.getResponseCode() > 299){
+        if (postCon.getResponseCode() >= 300){
             String newUrl = postCon.getHeaderField("Location");
             String extraMsg = newUrl == null? "" : ". Please use URL '" + newUrl + "' instead";
             throw new IOException("Unable to call " + baseUrl + ": " + postCon.getResponseMessage() + extraMsg);
