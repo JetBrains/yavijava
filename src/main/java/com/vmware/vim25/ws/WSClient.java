@@ -31,6 +31,7 @@ POSSIBILITY OF SUCH DAMAGE.
 
 package com.vmware.vim25.ws;
 
+import org.apache.commons.codec.binary.StringUtils;
 import org.apache.log4j.Logger;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -172,6 +173,12 @@ public class WSClient extends SoapClient {
         out.close();
 
         InputStream is = getInputStreamFromConnection(postCon);
+
+        if (postCon.getResponseCode() > 299){
+            String newUrl = postCon.getHeaderField("Location");
+            String extraMsg = newUrl == null? "" : ". Please use URL '" + newUrl + "' instead";
+            throw new IOException("Unable to call " + baseUrl + ": " + postCon.getResponseMessage() + extraMsg);
+        }
 
         if (cookie == null) {
             cookie = postCon.getHeaderField("Set-Cookie");

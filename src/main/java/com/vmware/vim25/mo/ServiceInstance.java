@@ -268,6 +268,7 @@ public class ServiceInstance extends ManagedObject {
             }
             catch (Exception e) {
                 log.debug("Exception caught trying to retrieveServiceContent.", e);
+                throw new RuntimeException(e);
             }
         }
         return serviceContent;
