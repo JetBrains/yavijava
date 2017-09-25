@@ -3,9 +3,11 @@ package com.vmware.vim25.mo;
 import com.vmware.vim25.*;
 import com.vmware.vim25.mo.util.MorUtil;
 import com.vmware.vim25.mo.util.PropertyCollectorUtil;
+import org.apache.commons.codec.binary.StringUtils;
 import org.apache.log4j.Logger;
 
 import java.rmi.RemoteException;
+import java.util.*;
 
 public class InventoryNavigator {
     private ManagedEntity rootEntity = null;
@@ -127,9 +129,30 @@ public class InventoryNavigator {
      * @throws RuntimeFault
      * @throws InvalidProperty
      */
-    public ManagedEntity searchManagedEntity(String type, String name) throws InvalidProperty, RuntimeFault, RemoteException {
-        if (name == null || name.length() == 0) {
-            return null;
+    public ManagedEntity searchManagedEntity(String type, String name) throws RemoteException {
+        return searchManagedEntities(type, Collections.singleton(name)).get(name);
+    }
+    /**
+     * Get the ManagedObjectReference for an item under the
+     * specified parent node that has the type and name specified.
+     *
+     * @param type type of the managed object
+     * @param names names to match
+     * @return Map of matched entities (vmname->entity). Map keys are exactly as supplied to method and might
+     *          differ from actual VM names in datacenter
+     * @throws RemoteException
+     * @throws RuntimeFault
+     * @throws InvalidProperty
+     */
+    public Map<String, ManagedEntity> searchManagedEntities(String type, Collection<String> names) throws RemoteException {
+        if (names == null || names.size() == 0) {
+            return Collections.emptyMap();
+        }
+        final Map<String, ManagedEntity> retval = new HashMap<String, ManagedEntity>();
+
+        final Map<String, String> lcNamesMap = new HashMap<String, String>();
+        for (String name : names) {
+            lcNamesMap.put(name.toLowerCase(), name);
         }
 
         if (type == null) {
@@ -149,13 +172,16 @@ public class InventoryNavigator {
 
             if (propSet.length > 0) {
                 String nameInPropSet = (String) propSet[0].getVal();
-                if (name.equalsIgnoreCase(nameInPropSet)) {
+                if (nameInPropSet == null)
+                    continue;
+                String vmNameLC = nameInPropSet.toLowerCase();
+                if (lcNamesMap.containsKey(vmNameLC)) {
                     ManagedObjectReference mor = ocs[i].getObj();
-                    return MorUtil.createExactManagedEntity(rootEntity.getServerConnection(), mor);
+                    retval.put(lcNamesMap.get(vmNameLC), MorUtil.createExactManagedEntity(rootEntity.getServerConnection(), mor));
                 }
             }
         }
-        return null;
+        return retval;
     }
 
 }
