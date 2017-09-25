@@ -138,7 +138,7 @@ public class InventoryNavigator {
      *
      * @param type type of the managed object
      * @param names names to match
-     * @return Map of matched entities (vmname->entity). Map keys are exactly as supplied to method and might
+     * @return Map of matched entities (vmname : entity). Map keys are exactly as supplied to method and might
      *          differ from actual VM names in datacenter
      * @throws RemoteException
      * @throws RuntimeFault

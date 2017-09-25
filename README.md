@@ -1,4 +1,5 @@
-[![Build Status](https://travis-ci.org/yavijava/yavijava.svg?branch=gradle)](https://travis-ci.org/yavijava/yavijava)
+[![JetBrains team project](http://jb.gg/badges/team.svg)](https://confluence.jetbrains.com/display/ALL/JetBrains+on+GitHub)
+[![Build Status](https://teamcity.jetbrains.com/app/rest/builds/buildType:(id:TeamCityPluginsByJetBrains_TeamcityVmwarePlugin_Yavijava)/statusIcon)](https://teamcity.jetbrains.com/viewType.html?buildTypeId=TeamCityPluginsByJetBrains_TeamcityVmwarePlugin_Yavijava)
 [![Join the chat at https://gitter.im/yavijava/yavijava](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/yavijava/yavijava?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 Welcome to the YAVI Java API
