@@ -29,14 +29,17 @@ POSSIBILITY OF SUCH DAMAGE.
 
 package org.doublecloud.ws.util;
 
+import org.apache.commons.codec.DecoderException;
+import org.apache.commons.codec.binary.Hex;
+import org.joda.time.DateTime;
+import org.joda.time.format.ISODateTimeFormat;
+
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.Base64;
 import java.util.Collections;
 import java.util.List;
-
-import javax.xml.bind.DatatypeConverter;
 
 public class ReflectUtil {
 
@@ -117,8 +120,8 @@ public class ReflectUtil {
             field.set(object, Boolean.valueOf(value));
         }
         else if ("Calendar".equals(type) || "dateTime".equals(type)) {
-            Calendar cal = DatatypeConverter.parseTime(value);
-            field.set(object, cal);
+            DateTime dateTime = ISODateTimeFormat.dateTimeParser().parseDateTime(value);
+            field.set(object, dateTime.toGregorianCalendar());
         }
         else if ("double".equals(type)) {
             field.set(object, Double.parseDouble(value));
@@ -127,7 +130,7 @@ public class ReflectUtil {
             field.set(object, new Double(value));
         }
         else if ("base64Binary".equals(type)) {
-            field.set(object, DatatypeConverter.parseBase64Binary(value));
+            field.set(object, Base64.getDecoder().decode(value));
         }
         else {
             throw new RuntimeException("Unexpected Type at setObjectField: " + field.getType().getCanonicalName() + field.getName());
@@ -177,7 +180,7 @@ public class ReflectUtil {
             for (String s: values) {
                 tempStr += s;
             }
-            return DatatypeConverter.parseBase64Binary(tempStr);
+            return Base64.getDecoder().decode(tempStr);
         }
     }
 
@@ -273,7 +276,8 @@ public class ReflectUtil {
             return toBooleanArray(values);
         }
         else if ("Calendar".equals(type) || "dateTime".equals(type)) {
-            return DatatypeConverter.parseTime(values.get(0));
+            DateTime dateTime = ISODateTimeFormat.dateTimeParser().parseDateTime(values.get(0));
+            return dateTime.toGregorianCalendar();
         }
         else if ("double".equals(type)) {
             return new Double(values.get(0));
