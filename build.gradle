@@ -8,7 +8,11 @@ apply plugin: 'groovy'
 
 group = "com.toastcoders"
 archivesBaseName = "yavijava"
-version = '6.0.05-SNAPSHOT'
+def buildNumber = 'SNAPSHOT'
+if (project.hasProperty('buildnum')){
+    buildNumber = "${buildnum}"
+}
+version = "6.0.05-${buildNumber}"
 ext.isReleaseVersion = !version.endsWith("SNAPSHOT")
 targetCompatibility = 1.8
 sourceCompatibility = 1.8
