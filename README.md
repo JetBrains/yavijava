@@ -45,7 +45,7 @@ dependencies (Always check the build.gradle for the latest requirements):
     dependencies {
         compile 'org.apache.directory.studio:org.dom4j.dom4j:1.6.1'
         compile 'log4j:log4j:1.2.17'
-        compile 'org.apache.httpcomponents:httpclient:4.3.5'
+        compile 'org.apache.httpcomponents:httpclient:4.3.6'
         testCompile 'org.mockito:mockito-all:1.9.5'
         testCompile group: 'junit', name: 'junit', version: '4.+'
     }
