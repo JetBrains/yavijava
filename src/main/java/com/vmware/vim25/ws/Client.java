@@ -149,8 +149,6 @@ public interface Client {
      */
     public void setReadTimeout(int timeoutMilliSec);
 
-    public TrustManager getTrustManager();
-
     /**
      * Sets the api version. The oldest supported will be v4.0
      *

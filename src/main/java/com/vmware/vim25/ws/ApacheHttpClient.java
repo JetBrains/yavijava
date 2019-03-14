@@ -78,7 +78,6 @@ public class ApacheHttpClient extends SoapClient {
         log.trace("Creating ApacheHttpClient to server URL: " + serverUrl);
         log.trace("Ignore ssl: " + ignoreCert);
         this.trustAllSSL = ignoreCert;
-        this.trustManager = trustManager;
         this.baseUrl = new URL(serverUrl);
     }
 
@@ -160,15 +159,9 @@ public class ApacheHttpClient extends SoapClient {
             .setConnectTimeout(this.connectTimeout)
             .setSocketTimeout(this.readTimeout)
             .build();
-        if(trustAllSSL && trustManager != null) {
-            log.warn("The option to ignore certs has been set along with a provided trust manager. This is not a valid scenario and the trust manager will be ignored.");
-        }
 
         if (trustAllSSL) {
             httpclient = HttpClients.custom().setSSLSocketFactory(ApacheTrustSelfSigned.trust()).build();
-        } else if(trustManager != null) {
-            LayeredConnectionSocketFactory sslConnectionSocketFactory = new SSLConnectionSocketFactory(CustomSSLTrustContextCreator.getTrustContext(trustManager), new AllowAllHostnameVerifier());
-            httpclient = HttpClients.custom().setSSLSocketFactory(sslConnectionSocketFactory).build();
         } else {
             httpclient = HttpClients.createDefault();
         }

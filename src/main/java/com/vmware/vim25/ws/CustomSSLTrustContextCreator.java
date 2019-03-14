@@ -8,14 +8,9 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class CustomSSLTrustContextCreator {
 
-    private static AtomicBoolean contextAlreadyCreated = new AtomicBoolean(false);
-    private static SSLContext sslContext;
-
-    public static SSLContext getTrustContext(TrustManager trustManager) throws RemoteException {
+    static SSLContext getTrustContext(TrustManager trustManager) throws RemoteException {
+        SSLContext sslContext;
         try {
-            if (contextAlreadyCreated.getAndSet(true)) {
-                return sslContext;
-            }
 
             TrustManager[] trustManagers = new TrustManager[] { trustManager };
             sslContext = SSLContext.getInstance("TLS");
@@ -27,15 +22,5 @@ public class CustomSSLTrustContextCreator {
         }
 
         return sslContext;
-    }
-
-    /**
-     * Sets the contextAlreadyCreated boolean used to determine whether a new ssl context should be initialized or not.
-     * Exposed as public for unit testability.
-     *
-     * @param alreadyCreated
-     */
-    public static void setContextAlreadyCreated(boolean alreadyCreated) {
-        contextAlreadyCreated.set(alreadyCreated);
     }
 }

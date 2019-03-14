@@ -35,6 +35,7 @@ import com.vmware.vim25.ws.Client;
 import org.apache.log4j.Logger;
 import org.jetbrains.annotations.Nullable;
 
+import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -132,6 +133,30 @@ public class ServiceInstance extends ManagedObject {
         UserSession userSession = login(getSessionManager(), username, password, null);
         getServerConnection().setUserSession(userSession);
     }
+
+    public ServiceInstance(URL url, String username, String password, SSLSocketFactory sslSocketFactory, int connectTimeout, int readTimeout)
+            throws RemoteException, MalformedURLException {
+        if (url == null || username == null) {
+            throw new NullPointerException("None of url, username can be null.");
+        }
+
+        setMOR(SERVICE_INSTANCE_MOR);
+
+        VimPortType vimService = sslSocketFactory != null ? new VimPortType(url.toString(), sslSocketFactory) : new VimPortType(url.toString(), true);
+        vimService.getWsc().setVimNameSpace(VIM25_NAMESPACE);
+
+        vimService.getWsc().setConnectTimeout(connectTimeout);
+        vimService.getWsc().setReadTimeout(readTimeout);
+
+        serviceContent = retrieveServiceContent(vimService, SERVICE_INSTANCE_MOR);
+        vimService.getWsc().setSoapActionOnApiVersion(getApiVersion(serviceContent));
+        serviceContent = retrieveServiceContent(vimService, SERVICE_INSTANCE_MOR); //with new SOAP_ACTION
+        setServerConnection(new ServerConnection(url, vimService, this));
+
+        UserSession userSession = login(getSessionManager(), username, password, null);
+        getServerConnection().setUserSession(userSession);
+    }
+
 
     public ServiceInstance(URL url, String sessionStr, boolean ignoreCert)
         throws RemoteException, MalformedURLException {
@@ -280,10 +305,6 @@ public class ServiceInstance extends ManagedObject {
 
     public int getReadTimeout() {
         return getServerConnection().getVimService().getWsc().getReadTimeout();
-    }
-
-    public TrustManager getTrustManager() {
-        return getServerConnection().getVimService().getWsc().getTrustManager();
     }
 
     protected String getApiVersion(ServiceContent serviceContent) {

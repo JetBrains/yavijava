@@ -23,7 +23,7 @@ public class ServiceInstanceTest {
 
             Assert.assertEquals(0, si.getConnectTimeout());
             Assert.assertEquals(0, si.getReadTimeout());
-            Assert.assertNull(si.getTrustManager());
+            
         } catch(MalformedURLException e) {
             Assert.fail("An error occurred creating a service instance due its url being malformed. " + e.getMessage());
         } catch(RemoteException e) {
@@ -38,7 +38,7 @@ public class ServiceInstanceTest {
 
             Assert.assertEquals(2000, si.getConnectTimeout());
             Assert.assertEquals(5000, si.getReadTimeout());
-            Assert.assertNull(si.getTrustManager());
+            
         } catch(MalformedURLException e) {
             Assert.fail("An error occurred creating a service instance due its url being malformed. " + e.getMessage());
         } catch(RemoteException e) {
@@ -53,7 +53,7 @@ public class ServiceInstanceTest {
 
             Assert.assertEquals(0, si.getConnectTimeout());
             Assert.assertEquals(0, si.getReadTimeout());
-            Assert.assertNull(si.getTrustManager());
+            
         } catch(MalformedURLException e) {
             Assert.fail("An error occurred creating a service instance due its url being malformed. " + e.getMessage());
         } catch(RemoteException e) {
@@ -69,7 +69,7 @@ public class ServiceInstanceTest {
 
             Assert.assertEquals(0, si.getConnectTimeout());
             Assert.assertEquals(0, si.getReadTimeout());
-            Assert.assertEquals(testTrustManager, si.getTrustManager());
+            
         } catch(MalformedURLException e) {
             Assert.fail("An error occurred creating a service instance due its url being malformed. " + e.getMessage());
         } catch(RemoteException e) {
@@ -84,7 +84,7 @@ public class ServiceInstanceTest {
 
             Assert.assertEquals(2000, si.getConnectTimeout());
             Assert.assertEquals(5000, si.getReadTimeout());
-            Assert.assertNull(si.getTrustManager());
+            
         } catch(MalformedURLException e) {
             Assert.fail("An error occurred creating a service instance due its url being malformed. " + e.getMessage());
         } catch(RemoteException e) {
@@ -100,7 +100,7 @@ public class ServiceInstanceTest {
 
             Assert.assertEquals(2000, si.getConnectTimeout());
             Assert.assertEquals(5000, si.getReadTimeout());
-            Assert.assertEquals(testTrustManager, si.getTrustManager());
+            
         } catch(MalformedURLException e) {
             Assert.fail("An error occurred creating a service instance due its url being malformed. " + e.getMessage());
         } catch(RemoteException e) {
@@ -115,7 +115,7 @@ public class ServiceInstanceTest {
 
             Assert.assertEquals(0, si.getConnectTimeout());
             Assert.assertEquals(0, si.getReadTimeout());
-            Assert.assertNull(si.getTrustManager());
+            
         } catch(MalformedURLException e) {
             Assert.fail("An error occurred creating a service instance due its url being malformed. " + e.getMessage());
         } catch(RemoteException e) {
@@ -131,7 +131,7 @@ public class ServiceInstanceTest {
 
             Assert.assertEquals(0, si.getConnectTimeout());
             Assert.assertEquals(0, si.getReadTimeout());
-            Assert.assertEquals(testTrustManager, si.getTrustManager());
+            
         } catch(MalformedURLException e) {
             Assert.fail("An error occurred creating a service instance due its url being malformed. " + e.getMessage());
         } catch(RemoteException e) {
@@ -146,7 +146,7 @@ public class ServiceInstanceTest {
 
             Assert.assertEquals(2000, si.getConnectTimeout());
             Assert.assertEquals(5000, si.getReadTimeout());
-            Assert.assertNull(si.getTrustManager());
+            
         } catch(MalformedURLException e) {
             Assert.fail("An error occurred creating a service instance due its url being malformed. " + e.getMessage());
         } catch(RemoteException e) {
@@ -162,7 +162,7 @@ public class ServiceInstanceTest {
 
             Assert.assertEquals(2000, si.getConnectTimeout());
             Assert.assertEquals(5000, si.getReadTimeout());
-            Assert.assertEquals(testTrustManager, si.getTrustManager());
+            
         } catch(MalformedURLException e) {
             Assert.fail("An error occurred creating a service instance due its url being malformed. " + e.getMessage());
         } catch(RemoteException e) {
@@ -177,7 +177,7 @@ public class ServiceInstanceTest {
 
             Assert.assertEquals(0, si.getConnectTimeout());
             Assert.assertEquals(0, si.getReadTimeout());
-            Assert.assertNull(si.getTrustManager());
+            
         } catch(MalformedURLException e) {
             Assert.fail("An error occurred creating a service instance due its url being malformed. " + e.getMessage());
         } catch(RemoteException e) {
@@ -193,7 +193,7 @@ public class ServiceInstanceTest {
 
             Assert.assertEquals(0, si.getConnectTimeout());
             Assert.assertEquals(0, si.getReadTimeout());
-            Assert.assertEquals(testTrustManager, si.getTrustManager());
+            
         } catch(MalformedURLException e) {
             Assert.fail("An error occurred creating a service instance due its url being malformed. " + e.getMessage());
         } catch(RemoteException e) {
@@ -208,7 +208,7 @@ public class ServiceInstanceTest {
 
             Assert.assertEquals(2000, si.getConnectTimeout());
             Assert.assertEquals(5000, si.getReadTimeout());
-            Assert.assertNull(si.getTrustManager());
+            
         } catch(MalformedURLException e) {
             Assert.fail("An error occurred creating a service instance due its url being malformed. " + e.getMessage());
         } catch(RemoteException e) {
@@ -224,7 +224,7 @@ public class ServiceInstanceTest {
 
             Assert.assertEquals(2000, si.getConnectTimeout());
             Assert.assertEquals(5000, si.getReadTimeout());
-            Assert.assertEquals(testTrustManager, si.getTrustManager());
+            
         } catch(MalformedURLException e) {
             Assert.fail("An error occurred creating a service instance due its url being malformed. " + e.getMessage());
         } catch(RemoteException e) {
@@ -239,7 +239,7 @@ public class ServiceInstanceTest {
 
             Assert.assertEquals(0, si.getConnectTimeout());
             Assert.assertEquals(0, si.getReadTimeout());
-            Assert.assertNull(si.getTrustManager());
+            
         } catch(MalformedURLException e) {
             Assert.fail("An error occurred creating a service instance due its url being malformed. " + e.getMessage());
         } catch(RemoteException e) {
@@ -255,7 +255,7 @@ public class ServiceInstanceTest {
 
             Assert.assertEquals(0, si.getConnectTimeout());
             Assert.assertEquals(0, si.getReadTimeout());
-            Assert.assertEquals(testTrustManager, si.getTrustManager());
+            
         } catch(MalformedURLException e) {
             Assert.fail("An error occurred creating a service instance due its url being malformed. " + e.getMessage());
         } catch(RemoteException e) {
@@ -270,7 +270,7 @@ public class ServiceInstanceTest {
 
             Assert.assertEquals(2000, si.getConnectTimeout());
             Assert.assertEquals(5000, si.getReadTimeout());
-            Assert.assertNull(si.getTrustManager());
+            
         } catch(MalformedURLException e) {
             Assert.fail("An error occurred creating a service instance due its url being malformed. " + e.getMessage());
         } catch(RemoteException e) {
@@ -286,7 +286,7 @@ public class ServiceInstanceTest {
 
             Assert.assertEquals(2000, si.getConnectTimeout());
             Assert.assertEquals(5000, si.getReadTimeout());
-            Assert.assertEquals(testTrustManager, si.getTrustManager());
+            
         } catch(MalformedURLException e) {
             Assert.fail("An error occurred creating a service instance due its url being malformed. " + e.getMessage());
         } catch(RemoteException e) {

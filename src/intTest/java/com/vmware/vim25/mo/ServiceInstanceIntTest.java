@@ -31,7 +31,7 @@ public class ServiceInstanceIntTest {
         }
 
         // ensure that the ssl context is re-initialized for every test, so behavior for different trust managers can be verified
-        CustomSSLTrustContextCreator.setContextAlreadyCreated(false);
+//        CustomSSLTrustContextCreator.setContextAlreadyCreated(false);
     }
 
     @Test

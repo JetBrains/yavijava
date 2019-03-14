@@ -32,6 +32,7 @@ package com.vmware.vim25;
 
 import com.vmware.vim25.ws.Client;
 
+import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 
 public class VimPortType extends com.vmware.vim25.ws.VimStub {
@@ -43,7 +44,7 @@ public class VimPortType extends com.vmware.vim25.ws.VimStub {
         super(url, trustManager);
     }
 
-    public VimPortType(Client url) throws java.net.MalformedURLException {
-        super(url);
+    public VimPortType(String url, SSLSocketFactory sslSocketFactory) {
+        super(url, sslSocketFactory);
     }
 }

@@ -40,7 +40,6 @@ public abstract class SoapClient implements Client {
     public String vimNameSpace = null;
     public int connectTimeout = 0;
     public int readTimeout = 0;
-    protected TrustManager trustManager;
 
     XmlGen xmlGen = new XmlGenDom();
 
@@ -212,9 +211,6 @@ public abstract class SoapClient implements Client {
         this.readTimeout = timeoutMilliSec;
     }
 
-    public TrustManager getTrustManager() {
-        return trustManager;
-    }
 
     public StringBuffer readStream(InputStream is) throws IOException {
         log.trace("Building StringBuffer from InputStream response.");

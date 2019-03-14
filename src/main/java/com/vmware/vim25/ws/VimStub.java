@@ -32,8 +32,10 @@ package com.vmware.vim25.ws;
 import com.vmware.vim25.*;
 import org.apache.log4j.Logger;
 
+import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import java.lang.reflect.InvocationTargetException;
+import java.net.MalformedURLException;
 import java.rmi.RemoteException;
 import java.util.Calendar;
 import java.lang.Object;
@@ -53,27 +55,25 @@ public class VimStub {
 
     public VimStub(String url, boolean ignoreCert) {
         try {
-            this.wsc = ClientCreator.getClient(url, ignoreCert);
-        }
-        catch (NoSuchMethodException e) {
-            log.error("Error detected for url: " + url + " ignoreSSL: " + ignoreCert, e);
-        }
-        catch (IllegalAccessException e) {
-            log.error("Error detected for url: " + url + " ignoreSSL: " + ignoreCert, e);
-        }
-        catch (InvocationTargetException e) {
-            log.error("Error detected for url: " + url + " ignoreSSL: " + ignoreCert, e);
-        }
-        catch (InstantiationException e) {
+            this.wsc = new WSClient(url, ignoreCert);
+        } catch (RemoteException | MalformedURLException e) {
             log.error("Error detected for url: " + url + " ignoreSSL: " + ignoreCert, e);
         }
     }
 
     public VimStub(String url, TrustManager trustManager) {
         try {
-            this.wsc = ClientCreator.getClient(url, trustManager);
+            this.wsc = new WSClient(url, false, trustManager);
         } catch (Exception e) {
             log.error("Error detected for url: " + url + " trustManager: " + trustManager, e);
+        }
+    }
+
+    public VimStub(String url, SSLSocketFactory sslSocketFactory) {
+        try {
+            this.wsc = new WSClient(url, sslSocketFactory);
+        } catch (Exception e) {
+            log.error("Error detected for url: " + url + " sslSocketFactory: " + sslSocketFactory, e);
         }
     }
 

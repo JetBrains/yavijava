@@ -81,9 +81,18 @@ public class WSClient extends SoapClient {
         log.trace("Creating WSClient to server URL: " + serverUrl);
         log.trace("Ignore ssl: " + ignoreCert);
 
-        this.trustManager = trustManager;
         this.baseUrl = new URL(serverUrl);
         this.sslSocketFactory = ignoreCert ? getTrustAllSocketFactory(true) : getCustomTrustManagerSocketFactory(trustManager);
+    }
+
+    public WSClient(String serverUrl, SSLSocketFactory sslSocketFactory) throws MalformedURLException, RemoteException {
+        if (serverUrl.endsWith("/")) {
+            serverUrl = serverUrl.substring(0, serverUrl.length() - 1);
+        }
+        log.trace("Creating WSClient to server URL: " + serverUrl);
+
+        this.baseUrl = new URL(serverUrl);
+        this.sslSocketFactory = sslSocketFactory;
     }
 
     public Object invoke(String methodName, Argument[] paras, String returnType) throws RemoteException {
