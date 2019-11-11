@@ -130,7 +130,10 @@ public class InventoryNavigator {
      * @throws InvalidProperty
      */
     public ManagedEntity searchManagedEntity(String type, String name) throws RemoteException {
-        return searchManagedEntities(type, Collections.singleton(name)).get(name);
+        final Map<String, ManagedEntity> entities = searchManagedEntities(type, Collections.singleton(name));
+        if (entities == null)
+            return null;
+        return entities.get(name);
     }
     /**
      * Get the ManagedObjectReference for an item under the
