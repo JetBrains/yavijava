@@ -55,7 +55,9 @@ public abstract class SoapClient implements Client {
       ===============================================
     */
     public void setSoapActionOnApiVersion(String apiVersion) {
-        log.trace("API Version detected: " + apiVersion);
+        if (log.isTraceEnabled()) {
+            log.trace("API Version detected: " + apiVersion);
+        }
         if ("4.0".equals(apiVersion)) {
             soapAction = SoapAction.SOAP_ACTION_V40.toString();
         }
@@ -77,7 +79,9 @@ public abstract class SoapClient implements Client {
         else { //always defaults to latest version
             soapAction = SoapAction.SOAP_ACTION_V60.toString();
         }
-        log.trace("Set soapAction to: " + soapAction);
+        if (log.isTraceEnabled()) {
+            log.trace("Set soapAction to: " + soapAction);
+        }
     }
 
     /**
@@ -213,7 +217,9 @@ public abstract class SoapClient implements Client {
 
 
     public StringBuffer readStream(InputStream is) throws IOException {
-        log.trace("Building StringBuffer from InputStream response.");
+        if (log.isTraceEnabled()) {
+            log.trace("Building StringBuffer from InputStream response.");
+        }
         StringBuffer sb = new StringBuffer();
         BufferedReader in = new BufferedReader(new InputStreamReader(is));
         String lineStr;
@@ -233,7 +239,9 @@ public abstract class SoapClient implements Client {
      */
     public String marshall(String methodName, Argument[] paras) {
         String soapMsg = XmlGen.toXML(methodName, paras, vimNameSpace);
-        log.trace("Marshalled Payload String xml: " + soapMsg);
+        if (log.isTraceEnabled()) {
+            log.trace("Marshalled Payload String xml: " + soapMsg);
+        }
         return soapMsg;
     }
 

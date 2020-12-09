@@ -74,12 +74,18 @@ class XmlGenDom extends XmlGen {
     }
 
     public Object fromXML(String returnType, InputStream is) throws RemoteException {
-        log.debug("Parsing XML payload from server. " + returnType);
+        if (log.isDebugEnabled()) {
+            log.debug("Parsing XML payload from server. " + returnType);
+        }
         Element root = null;
         try {
             SAXReader reader = new SAXReader();
+            reader.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+            reader.setFeature("http://xml.org/sax/features/external-general-entities", false);
             Document doc = reader.read(is);
-            log.trace("XML Document: " + doc.asXML());
+            if (log.isTraceEnabled()) {
+                log.trace("XML Document: " + doc.asXML());
+            }
             root = doc.getRootElement();
         }
         catch (DocumentException e){

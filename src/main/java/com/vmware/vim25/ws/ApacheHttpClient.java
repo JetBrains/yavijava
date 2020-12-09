@@ -107,12 +107,14 @@ public class ApacheHttpClient extends SoapClient {
      */
     @Override
     public Object invoke(String methodName, Argument[] paras, String returnType) throws RemoteException {
-        log.trace("Invoking method: " + methodName);
+        if (log.isTraceEnabled())
+            log.trace("Invoking method: " + methodName);
         String soapMsg = marshall(methodName, paras);
         InputStream is = null;
         try {
             is = post(soapMsg);
-            log.trace("Converting xml response from server to: " + returnType);
+            if (log.isTraceEnabled())
+                log.trace("Converting xml response from server to: " + returnType);
             return unMarshall(returnType, is);
         }
         catch (Exception e1) {
@@ -169,7 +171,8 @@ public class ApacheHttpClient extends SoapClient {
         StringEntity stringEntity;
         try {
             stringEntity = new StringEntity(payload);
-            log.trace("Converted payload to String entity.");
+            if (log.isTraceEnabled())
+                log.trace("Converted payload to String entity.");
         }
         catch (UnsupportedEncodingException e) {
             log.error("Failed to convert payload to StringEntity. Unsupported Encoding Exception caught. Payload: " + payload, e);
@@ -186,7 +189,8 @@ public class ApacheHttpClient extends SoapClient {
         httpPost.setHeader(SoapAction.SOAP_ACTION_HEADER.toString(), soapAction);
         httpPost.setHeader("Content-Type", "text/xml; charset=utf-8");
         if (cookie != null) {
-            log.trace("Setting Cookie.");
+            if (log.isTraceEnabled())
+                log.trace("Setting Cookie " + cookie);
             httpPost.setHeader("Cookie", cookie);
         }
         httpPost.setEntity(stringEntity);

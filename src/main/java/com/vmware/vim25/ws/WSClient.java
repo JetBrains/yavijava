@@ -96,13 +96,17 @@ public class WSClient extends SoapClient {
     }
 
     public Object invoke(String methodName, Argument[] paras, String returnType) throws RemoteException {
-        log.trace("Invoking method: " + methodName);
+        if (log.isTraceEnabled()) {
+            log.trace("Invoking method: " + methodName);
+        }
         String soapMsg = marshall(methodName, paras);
 
         InputStream is = null;
         try {
             is = post(soapMsg);
-            log.trace("Converting xml response from server to: " + returnType);
+            if (log.isTraceEnabled()) {
+                log.trace("Converting xml response from server to: " + returnType);
+            }
             return unMarshall(returnType, is);
         }
         catch (Exception e1) {
@@ -145,8 +149,10 @@ public class WSClient extends SoapClient {
             ((HttpsURLConnection) postCon).setSSLSocketFactory(sslSocketFactory);
         }
 
-        log.trace("POST: " + soapAction);
-        log.trace("Payload: " + soapMsg);
+        if (log.isTraceEnabled()) {
+            log.trace("POST: " + soapAction);
+            log.trace("Payload: " + soapMsg);
+        }
         if (connectTimeout > 0) {
             postCon.setConnectTimeout(connectTimeout);
         }
@@ -171,7 +177,9 @@ public class WSClient extends SoapClient {
         postCon.setRequestProperty("Content-Type", "text/xml; charset=utf-8");
 
         if (cookie != null) {
-            log.trace("Setting Cookie.");
+            if (log.isTraceEnabled()) {
+                log.trace("Setting Cookie " + cookie);
+            }
             postCon.setRequestProperty("Cookie", cookie);
         }
 
@@ -201,7 +209,9 @@ public class WSClient extends SoapClient {
 
         try {
             is = postCon.getInputStream();
-            log.trace("Successfully fetched InputStream.");
+            if (log.isTraceEnabled()) {
+                log.trace("Successfully fetched InputStream.");
+            }
         }
         catch (IOException ioe) {
             log.debug("Caught an IOException. Reading ErrorStream for results.", ioe);
