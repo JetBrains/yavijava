@@ -36,16 +36,24 @@ import org.apache.log4j.Logger;
 import org.doublecloud.ws.util.ReflectUtil;
 import org.doublecloud.ws.util.TypeUtil;
 import org.doublecloud.ws.util.XmlUtil;
+import org.xml.sax.XMLReader;
 
 import javax.xml.bind.DatatypeConverter;
 import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.Calendar;
+import java.util.function.Supplier;
 
 public abstract class XmlGen {
 
     private static Logger log = Logger.getLogger(XmlGen.class);
+    protected static Supplier<XMLReader> xmlReaderSupplier;
+
+    public static void setXmlReaderSupplier(Supplier<XMLReader> supplier){
+        xmlReaderSupplier = supplier;
+    }
+
 
     public static String toXML(String methodName, Argument[] paras, String vimNameSpace) {
         StringBuilder sb = new StringBuilder();

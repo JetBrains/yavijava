@@ -60,12 +60,6 @@ public class WSClient extends SoapClient {
     private static final Logger log = Logger.getLogger(WSClient.class);
     private final SSLSocketFactory sslSocketFactory;
 
-    private XmlGen xmlGen = new XmlGenDom();
-
-    public WSClient(String serverUrl) throws MalformedURLException, RemoteException {
-        this(serverUrl, true);
-    }
-
     public WSClient(String serverUrl, boolean ignoreCert) throws MalformedURLException, RemoteException {
         this(serverUrl, ignoreCert, null);
     }

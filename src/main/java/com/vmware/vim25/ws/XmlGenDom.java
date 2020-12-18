@@ -36,9 +36,13 @@ import org.apache.log4j.Logger;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
+import org.dom4j.io.SAXContentHandler;
 import org.dom4j.io.SAXReader;
 import org.doublecloud.ws.util.ReflectUtil;
 import org.doublecloud.ws.util.TypeUtil;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+import org.xml.sax.XMLReader;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -73,16 +77,34 @@ class XmlGenDom extends XmlGen {
         return numOfTags;
     }
 
+    private Document parseDocument(InputStream is) throws IOException, SAXException, DocumentException {
+        if (xmlReaderSupplier == null) {
+            log.warn("xmlReaderSupplier is null. Will use bundled (legacy) parser");
+            return parseDocumentLegacy(is);
+        }
+        XMLReader reader = xmlReaderSupplier.get();
+        SAXContentHandler handler = new SAXContentHandler();
+        reader.setContentHandler(handler);
+        reader.setErrorHandler(handler);
+        reader.parse(new InputSource(is));
+        return handler.getDocument();
+    }
+
+    private Document parseDocumentLegacy(InputStream is) throws SAXException, DocumentException {
+        SAXReader reader = new SAXReader();
+        reader.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+        reader.setFeature("http://xml.org/sax/features/external-general-entities", false);
+        return reader.read(is);
+
+    }
+
     public Object fromXML(String returnType, InputStream is) throws RemoteException {
         if (log.isDebugEnabled()) {
             log.debug("Parsing XML payload from server. " + returnType);
         }
         Element root = null;
         try {
-            SAXReader reader = new SAXReader();
-            reader.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
-            reader.setFeature("http://xml.org/sax/features/external-general-entities", false);
-            Document doc = reader.read(is);
+            Document doc = parseDocument(is);
             if (log.isTraceEnabled()) {
                 log.trace("XML Document: " + doc.asXML());
             }

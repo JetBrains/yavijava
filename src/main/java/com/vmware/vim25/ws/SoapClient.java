@@ -1,6 +1,7 @@
 package com.vmware.vim25.ws;
 
 import org.apache.log4j.Logger;
+import org.xml.sax.XMLReader;
 
 import javax.net.ssl.TrustManager;
 import java.io.BufferedReader;
@@ -12,6 +13,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.X509Certificate;
 import java.security.cert.CertificateEncodingException;
+import java.util.function.Supplier;
 
 /**
  * Created by Michael Rice on 8/10/14.
@@ -41,7 +43,7 @@ public abstract class SoapClient implements Client {
     public int connectTimeout = 0;
     public int readTimeout = 0;
 
-    XmlGen xmlGen = new XmlGenDom();
+    protected final XmlGen xmlGen = new XmlGenDom();
 
     /*===============================================
        * API versions *

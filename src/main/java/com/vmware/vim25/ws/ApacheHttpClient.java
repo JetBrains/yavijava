@@ -47,11 +47,6 @@ public class ApacheHttpClient extends SoapClient {
     private static final Logger log = Logger.getLogger(ApacheHttpClient.class);
 
     /**
-     * The XML serialization/de-serialization engine
-     */
-    private XmlGen xmlGen = new XmlGenDom();
-
-    /**
      * Trust all the ssl stuff no matter what!?!
      * <p>
      * We do true here because by default all the vsphere stuff
